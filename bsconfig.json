@@ -1,0 +1,42 @@
+{
+  "name": "reason-scripts",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": [
+        "client",
+        "components",
+        "private",
+        "__test__",
+        "utils"
+      ]
+    }
+    // {
+    //  "dir": "__test__",
+    //  "type": "dev" 
+    // }
+  ],
+  "bs-dependencies": [
+    "reason-react",
+    "bs-jest",
+    "reason-apollo"
+  ],
+  "ppx-flags": [
+    "graphql_ppx/ppx"
+  ],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "refmt": 3,
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "warnings": {
+    "error": "+5"
+  }
+}
