@@ -24,9 +24,19 @@ let make = _children => {
       ...(
            ({result}) =>
              switch (result) {
-             | NoData => <div> (ReasonReact.string("No Viewer Data")) </div>
-             | Loading => <div> (ReasonReact.string("Loading ...")) </div>
-             | Error(_error) => <div> (ReasonReact.string("Error")) </div>
+             | NoData =>
+               <div className="alert alert-warning" role="alert">
+                 (ReasonReact.string("No Data received"))
+               </div>
+             | Loading => ReasonReact.null
+             | Error(_error) =>
+               <div className="alert alert-danger" role="alert">
+                 (
+                   ReasonReact.string(
+                     "An unexpeced error occured, please try again later!",
+                   )
+                 )
+               </div>
              | Data(response) =>
                <div
                  className="UserInfo-alert alert alert-success" role="alert">

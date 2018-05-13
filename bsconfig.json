@@ -6,6 +6,7 @@
       "subdirs": [
         "client",
         "components",
+        "components/repositories",
         "private",
         "__test__",
         "utils"

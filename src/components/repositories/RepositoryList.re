@@ -47,9 +47,9 @@ let make = (~first, ~direction, _children) => {
       ...(
            ({result}) =>
              switch (result) {
-             | NoData => <div> (ReasonReact.string("No Data")) </div>
+             | NoData => ReasonReact.null
              | Loading => <div> (ReasonReact.string("Loading ...")) </div>
-             | Error(_error) => <div> (ReasonReact.string("Error")) </div>
+             | Error(_error) => ReasonReact.null
              | Data(response) =>
                <ul className="list-group">
                  (
