@@ -20,12 +20,17 @@ let authLink = ApolloLinks.createContextLink(contextHandler);
 /* Create a Link that handles 401 error responses */
 let errorHandler = errorResponse =>
   switch (errorResponse##networkError) {
-  | Some(error) =>
-    if (error##statusCode == 401) {
-      logout();
-    } else {
-      ();
-    }
+  | Some(error) => Js.Console.error(error)
+  /*
+   since i encountered an runtime error with this code i will only log for now
+   match[0].statusCode //  cannot call statusCode of undefined
+
+     if (error##statusCode == 401) {
+       logout();
+     } else {
+       ();
+     }
+   */
   | None => ()
   };
 
