@@ -1,9 +1,13 @@
+type orderDirection = [ | `ASC | `DESC];
+
 module GetRepos = [%graphql
   {|
     query getRepos ($first: Int!, $direction: OrderDirection!){
       viewer {
         repositories(first: $first, orderBy: {field: STARGAZERS, direction: $direction}) {
+          totalCount
           nodes {
+            id
             name
             stargazers {
               totalCount
@@ -18,12 +22,27 @@ module GetRepos = [%graphql
 
 module GetReposQuery = ReasonApollo.CreateQuery(GetRepos);
 
+let listItem = node => {
+  let star = node##viewerHasStarred ? {js|★|js} : {js|☆|js};
+  <li key=node##id className="list-group-item list-group-item-action">
+    (
+      ReasonReact.string(
+        string_of_int(node##stargazers##totalCount)
+        ++ " "
+        ++ star
+        ++ ": "
+        ++ node##name,
+      )
+    )
+  </li>;
+};
+
 let component = ReasonReact.statelessComponent("RepositoryList");
 
-let make = _children => {
+let make = (~first, ~direction, _children) => {
   ...component,
   render: _self => {
-    let reposQuery = GetRepos.make(~first=20, ~direction=`DESC, ());
+    let reposQuery = GetRepos.make(~first, ~direction, ());
     <GetReposQuery variables=reposQuery##variables>
       ...(
            ({result}) =>
@@ -45,22 +64,7 @@ let make = _children => {
                              <li className="list-group-item">
                                (ReasonReact.string("None"))
                              </li>
-                           | Some(node) =>
-                             let star =
-                               node##viewerHasStarred ?
-                                 {js|★|js} : {js|☆|js};
-                             <li
-                               className="list-group-item list-group-item-action">
-                               (
-                                 ReasonReact.string(
-                                   string_of_int(node##stargazers##totalCount)
-                                   ++ " "
-                                   ++ star
-                                   ++ ": "
-                                   ++ node##name,
-                                 )
-                               )
-                             </li>;
+                           | Some(node) => node |> listItem
                            },
                          nodes,
                        ),
