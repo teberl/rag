@@ -38,6 +38,16 @@ GraphQL is introspective. This means you can query a GraphQL schema for details 
 
 To get the gihtub graphql schema needed for this project please execute the following command from the commandline inside your project folder.
 
-` yarn send-introspection-query https://api.github.com/graphql --headers "Authorization: bearer TOKEN"`
+`yarn send-introspection-query https://api.github.com/graphql --headers "Authorization: bearer TOKEN"`
 
 [TLDR; GraphQL Introspection](http://graphql.org/learn/introspection/)
+
+
+### Running the project 
+
+We need two separate terminals in order to run the project
+
+1. `npm install`
+2. `npm run bs` // first terminal for compiling _reason_ to _javascript_
+3. `npm start`  // second terminal starts the webpack dev server
+  

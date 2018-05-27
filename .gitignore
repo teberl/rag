@@ -17,6 +17,7 @@
 /types
 .merlin
 *.bs.js
+.bsb.lock
 
 # misc
 .DS_Store

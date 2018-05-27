@@ -27,10 +27,11 @@ let listItem = node => {
   <li key=node##id className="list-group-item list-group-item-action">
     (
       ReasonReact.string(
-        string_of_int(node##stargazers##totalCount)
-        ++ " "
-        ++ star
-        ++ ": "
+        star
+        ++ " Star ("
+        ++ string_of_int(node##stargazers##totalCount)
+        ++ ")"
+        ++ " : "
         ++ node##name,
       )
     )
@@ -47,7 +48,6 @@ let make = (~first, ~direction, _children) => {
       ...(
            ({result}) =>
              switch (result) {
-             | NoData => ReasonReact.null
              | Loading => <div> (ReasonReact.string("Loading ...")) </div>
              | Error(_error) => ReasonReact.null
              | Data(response) =>

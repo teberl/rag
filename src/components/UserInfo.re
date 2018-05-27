@@ -24,10 +24,6 @@ let make = _children => {
       ...(
            ({result}) =>
              switch (result) {
-             | NoData =>
-               <div className="alert alert-warning" role="alert">
-                 (ReasonReact.string("No Data received"))
-               </div>
              | Loading => ReasonReact.null
              | Error(_error) =>
                <div className="alert alert-danger" role="alert">
